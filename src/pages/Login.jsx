@@ -31,7 +31,7 @@ const Login = () => {
         <div className="hidden sm:block sm:basis-1/2 lg:basis-7/12">
           <img
             className="my-0 mx-auto"
-            src="src/assets/cartoon-graphic.png"
+            src="./src/assets/cartoon-graphic.png"
             alt="cartoon"
           />
         </div>
