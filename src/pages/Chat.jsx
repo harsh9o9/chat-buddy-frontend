@@ -20,6 +20,7 @@ import {
 } from "@heroicons/react/20/solid";
 import MessageItem from "../Components/Chat/MessageItem";
 import isMobile from "is-mobile";
+import { toast } from "react-toastify";
 
 const Chat = () => {
   const { token } = useAuth();
@@ -82,7 +83,7 @@ const Chat = () => {
         setMessages((prev) => [res.data, ...prev]); // Update messages in the UI
         // TODO: need to handle last message here
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
@@ -95,14 +96,14 @@ const Chat = () => {
         const { data } = res;
         setChats(data || []);
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
   const getMessages = async () => {
-    if (!currentChat.current?._id) return alert("No chat is selected");
+    if (!currentChat.current?._id) return toast.warning("No chat is selected");
 
-    if (!socket) return alert("No socket available");
+    if (!socket) return toast.error("No socket available");
 
     socket.emit(ChatEvents.JOIN_CHAT_EVENT, currentChat.current?._id);
 
@@ -116,7 +117,7 @@ const Chat = () => {
         const { data } = res;
         setMessages(data || []);
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 

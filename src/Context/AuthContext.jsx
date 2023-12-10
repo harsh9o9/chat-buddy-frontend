@@ -4,6 +4,7 @@ import { LocalStorage, requestHandler } from "../utils";
 import { loginUser, registerUser, logoutUser } from "../api";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // crating context variable with default values
 const AuthContext = createContext({
@@ -36,7 +37,7 @@ const AuthProvider = ({ children }) => {
         LocalStorage.set("token", data.accessToken);
         navigate("/chat");
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
@@ -45,10 +46,10 @@ const AuthProvider = ({ children }) => {
       async () => await registerUser(data),
       setIsLoading,
       () => {
-        alert("Account created successfully, Please login!");
+        toast.success("Account created successfully, Please login!");
         navigate("/login");
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
@@ -62,7 +63,7 @@ const AuthProvider = ({ children }) => {
         LocalStorage.clear();
         navigate("/login");
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 

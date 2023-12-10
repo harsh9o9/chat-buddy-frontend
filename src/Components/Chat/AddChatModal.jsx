@@ -6,6 +6,7 @@ import { Dialog, Switch, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Button from "../Button";
 import Select from "../Select";
+import { toast } from "react-toastify";
 
 const AddChatModal = ({ open, onClose, onSuccess }) => {
   // State to store the list of users, initialized as an empty array
@@ -26,7 +27,7 @@ const AddChatModal = ({ open, onClose, onSuccess }) => {
         const { data } = res;
         setUsers(data || []);
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
@@ -40,8 +41,8 @@ const AddChatModal = ({ open, onClose, onSuccess }) => {
   };
 
   const createNewChat = async () => {
-    // If no user is selected, show an alert
-    if (!selectedUserId) return alert("Please select a user");
+    // If no user is selected, show an toast alert
+    if (!selectedUserId) return toast.info("Please select a user");
 
     // Handle the request to create a chat
     await requestHandler(
@@ -51,13 +52,13 @@ const AddChatModal = ({ open, onClose, onSuccess }) => {
         const { data } = res;
         // If chat already exists with the selected user
         if (res.statusCode === 200) {
-          alert("Chat with selected user already exists");
+          toast.info("Chat with selected user already exists");
           return;
         }
         onSuccess(data);
         handleClose();
       },
-      alert
+      (message) => toast.error(message)
     );
   };
 
