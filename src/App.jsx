@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./Components/PrivatePoute";
 import PublicRoute from "./Components/PublicRoute";
+import Lost from "./Components/Lost";
 
 function App() {
   let { token, user } = useAuth();
@@ -47,6 +48,7 @@ function App() {
           </PublicRoute>
         }
       ></Route>
+      <Route path="*" element={<Lost />}></Route>
     </Routes>
   );
 }

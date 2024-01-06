@@ -10,7 +10,7 @@ const getSocket = () => {
   // create a socket connection with URI & turning credentials true for sending backup auth token in handshake
   return socketio(import.meta.env.VITE_SOCKET_URI, {
     withCredentials: true,
-    auth: { token },
+    auth: { token: "Bearer " + token },
   });
 };
 

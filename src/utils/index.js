@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 // utility function for handling api requests while handling loading, success, error states
 export const requestHandler = async (api, setLoading, onSuccess, onError) => {
@@ -11,10 +11,10 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
       onSuccess(data);
     }
   } catch (e) {
-    console.log(e);
     if ([401, 403].includes(e?.response?.data?.statusCode)) {
+      console.error("auth error, please relogin");
       localStorage.clear();
-      Navigate("/login");
+      redirect("/login");
     }
     onError(e?.response?.data?.message || "Something went wrong");
   } finally {

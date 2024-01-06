@@ -20,10 +20,9 @@ import {
 } from "@heroicons/react/20/solid";
 import MessageItem from "../Components/Chat/MessageItem";
 import isMobile from "is-mobile";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const Chat = () => {
-  const { token } = useAuth();
   const { user } = useAuth();
   const { socket } = useSocket();
   const currentChat = useRef(null);
@@ -51,14 +50,12 @@ const Chat = () => {
   };
 
   const onNewChat = (chat) => {
-    console.log(chat);
     setChats((prev) => [chat, ...prev]);
   };
 
   const onMessageReceived = (message) => {
     // Check if the received message belongs to the currently active chat
     if (message.chat !== currentChat.current?._id) {
-      console.log("message count");
     } else {
       setMessages((prev) => [message, ...prev]);
     }
@@ -160,6 +157,7 @@ const Chat = () => {
 
   return (
     <>
+      <ToastContainer position="bottom-left" />
       <AddChatModal
         open={openAddChat}
         onClose={() => {
