@@ -3,6 +3,8 @@ import { useAuth } from '../Context/AuthContext';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 import { ToastContainer } from 'react-toastify';
+import cartoon from '../assets/cartoon-graphic.webp';
+import isMobile from 'is-mobile';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -45,16 +47,16 @@ const Register = () => {
         <>
             <ToastContainer position="top-left" />
             <div className="bg-gray-300">
-                <div className="flex min-h-screen max-w-screen-2xl items-center justify-evenly p-4">
+                <div className="min-h-svh flex max-w-screen-2xl items-center justify-evenly p-4">
                     <div className="hidden sm:block sm:basis-1/2 lg:basis-7/12">
                         <img
                             className="mx-auto my-0"
-                            src="./src/assets/cartoon-graphic.png"
+                            src={cartoon}
                             alt="cartoon"
                         />
                     </div>
                     <div
-                        className="flex h-full w-full flex-col items-center justify-evenly gap-5 rounded-xl bg-gray-100 px-8 py-5 sm:basis-1/2 lg:basis-5/12"
+                        className="flex h-full w-full flex-col items-center justify-around gap-5 rounded-xl bg-gray-100 px-8 py-5 sm:basis-1/2 sm:justify-evenly lg:basis-5/12"
                         style={{ minHeight: 'calc(100dvh - 2rem)' }}>
                         <div className="flex w-full flex-col items-center gap-6 text-center">
                             <svg
@@ -65,7 +67,9 @@ const Register = () => {
                             </svg>
                             <div>
                                 <h2 className="mb-1 text-2xl font-bold tracking-widest">
-                                    Welcome to Chat Buddy!
+                                    {!isMobile()
+                                        ? `Welcome to Chat Buddy!`
+                                        : 'Welcome!'}
                                 </h2>
                                 <p className="text-sm tracking-tight">
                                     Please enter your details

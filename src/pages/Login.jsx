@@ -3,6 +3,7 @@ import { useAuth } from '../Context/AuthContext';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 import { ToastContainer } from 'react-toastify';
+import cartoon from '../assets/cartoon-graphic.webp';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -30,11 +31,11 @@ const Login = () => {
         <>
             <ToastContainer position="top-left" />
             <div className="bg-gray-300">
-                <div className="flex min-h-screen max-w-screen-2xl items-center justify-evenly p-4">
+                <div className="min-h-svh flex max-w-screen-2xl items-center justify-evenly p-4">
                     <div className="hidden sm:block sm:basis-1/2 lg:basis-7/12">
                         <img
                             className="mx-auto my-0"
-                            src="./src/assets/cartoon-graphic.png"
+                            src={cartoon}
                             alt="cartoon"
                         />
                     </div>

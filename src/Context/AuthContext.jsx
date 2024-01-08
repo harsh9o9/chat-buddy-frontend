@@ -81,7 +81,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user, token, login, logut, register }}>
-            {isLoading ? <Loader className={'min-h-screen'} /> : children}
+            {isLoading ? <Loader className={'min-h-svh'} /> : children}
         </AuthContext.Provider>
     );
 };

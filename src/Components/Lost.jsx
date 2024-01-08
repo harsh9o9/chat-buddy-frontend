@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Lost = () => {
     return (
-        <div className="flex h-screen items-center justify-center bg-gray-300">
+        <div className="h-svh flex items-center justify-center bg-gray-300">
             <div className="text-center">
                 <h1 className="p-0 text-[15rem] leading-normal">404</h1>
                 <p className="text-xl font-bold">Oops! Page not found</p>

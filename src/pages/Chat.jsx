@@ -325,7 +325,9 @@ const Chat = () => {
                                 </div>
                                 {/* chat messages window */}
                                 <div
-                                    className={`flex w-full flex-col-reverse gap-3 overflow-y-auto p-4 md:p-8`}
+                                    className={`flex w-full flex-col-reverse gap-3 overflow-y-auto p-4 md:p-8 ${
+                                        loadingMessages ? 'justify-center' : ''
+                                    }`}
                                     id="message-window">
                                     {loadingMessages ? (
                                         <div className="flex items-center justify-center">

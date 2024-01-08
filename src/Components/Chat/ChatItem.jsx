@@ -60,7 +60,7 @@ const ChatItem = ({ chat, onClick, isActive, onChatDelete }) => {
                         e.stopPropagation();
                         setOpenOptions(!openOptions);
                     }}
-                    className="absolute right-1 self-center p-1 focus:outline-none focus:ring-[3px] focus:ring-sky-500 disabled:opacity-50"
+                    className="absolute right-1 hidden self-center p-1 focus:outline-none focus:ring-[3px] focus:ring-sky-500 disabled:opacity-50"
                     aria-label="More Options">
                     <EllipsisVerticalIcon
                         aria-hidden={true}
