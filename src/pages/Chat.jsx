@@ -70,14 +70,13 @@ const Chat = () => {
     // Function to send a chat message
     const sendChatMessage = async () => {
         if (!currentChat.current?._id) return;
-
+        setMessage(''); // Clear the message input
         await requestHandler(
             async () =>
                 await sendMessage(currentChat.current?._id || '', message),
             null,
             // On successful message sending, clear the message input, then update the UI
             (res) => {
-                setMessage(''); // Clear the message input
                 setMessages((prev) => [res.data, ...prev]); // Update messages in the UI
                 // TODO: need to handle last message here
             },
