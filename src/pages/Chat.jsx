@@ -173,10 +173,10 @@ const Chat = () => {
                 }}
             />
             <div
-                className={`grid h-screen w-full bg-gray-700 ${
+                className={`grid w-full bg-gray-700 ${
                     isMobile()
-                        ? 'grid-cols-1'
-                        : 'grid-cols-[minmax(250px,_30%)_1fr]'
+                        ? 'h-[100svh] grid-cols-1'
+                        : 'h-screen grid-cols-[minmax(250px,_30%)_1fr]'
                 }`}>
                 {showChatsPannel && (
                     <div className="chat-pannel relative overflow-y-auto bg-gray-500 px-4">
@@ -279,7 +279,12 @@ const Chat = () => {
                         {currentChat.current && currentChat.current?._id ? (
                             <>
                                 {/* chat window header */}
-                                <div className="flex w-full items-center justify-between border-l border-white/10 bg-gray-500 shadow-lg">
+                                <div
+                                    className={`flex w-full items-center border-l border-white/10 bg-gray-500 shadow-lg ${
+                                        isMobile()
+                                            ? 'flex-row-reverse justify-end'
+                                            : 'justify-between'
+                                    }`}>
                                     <div className="flex w-max items-center justify-start gap-3 p-4">
                                         {currentChat.current.isGroupChat ? (
                                             <div></div>
