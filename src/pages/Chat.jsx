@@ -225,6 +225,7 @@ const Chat = () => {
                                             }
                                             onClick={(chat) => {
                                                 if (
+                                                    !isMobile() &&
                                                     currentChat.current?._id &&
                                                     currentChat.current?._id ===
                                                         chat._id
