@@ -103,10 +103,10 @@ const loginUser = (data) => {
 
 const registerUser = (data) => {
     data = {
-        email: data.email,
-        fullName: data.fullName,
-        password: data.password,
-        username: data.username
+        email: data?.email,
+        fullName: data?.fullName,
+        password: data?.password,
+        username: data?.username
     };
     return apiClient.post('/users/register', data);
 };

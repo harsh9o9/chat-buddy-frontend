@@ -47,7 +47,7 @@ const ChatItem = ({ chat, onClick, isActive, onChatDelete }) => {
                 </div>
                 <div className="w-full">
                     <p className="truncate-1 font-bold capitalize text-white">
-                        {getChatObjectMetadata(chat, user).fullName}
+                        {getChatObjectMetadata(chat, user)?.fullName}
                     </p>
                 </div>
                 <small className="mb-2 inline-flex w-max flex-shrink-0 text-white/50">

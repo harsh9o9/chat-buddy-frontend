@@ -300,7 +300,7 @@ const Chat = () => {
                                                     getChatObjectMetadata(
                                                         currentChat.current,
                                                         user
-                                                    ).fullName
+                                                    )?.fullName
                                                 }
                                             </p>
                                             <small className="text-zinc-300">

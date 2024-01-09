@@ -42,11 +42,11 @@ export const getFullName = (user) => {
     let firstName, lastName;
 
     if (user) {
-        firstName = user.fullName.firstName;
-        lastName = user.fullName.lastName;
+        firstName = user?.fullName?.firstName;
+        lastName = user?.fullName?.lastName;
     } else {
-        firstName = LocalStorage.get('user').fullName.firstName;
-        lastName = LocalStorage.get('user').fullName.lastName;
+        firstName = LocalStorage.get('user')?.fullName?.firstName;
+        lastName = LocalStorage.get('user')?.fullName?.lastName;
     }
     return `${firstName} ${lastName}`;
 };
