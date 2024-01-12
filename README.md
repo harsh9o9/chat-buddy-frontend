@@ -1,5 +1,5 @@
 # Chat Buddy
-A real time chatting website build using react and socket.io ([link](https://chat-buddy-harsh9o9.vercel.app/chat))
+A real time chatting website build using react and socket.io ([link](https://chat-buddy-harsh9o9.vercel.app))
 
 ## Technologies:
 - React Js
