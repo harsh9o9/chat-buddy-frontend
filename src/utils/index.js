@@ -16,7 +16,16 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
             localStorage.clear();
             redirect('/login');
         }
-        onError(e?.response?.data?.message || 'Something went wrong');
+
+        let responseMessage = e?.response?.data?.message;
+
+        if (Array.isArray(responseMessage)) {
+            responseMessage.forEach((res) => {
+                onError(res?.msg || 'Something went wrong');
+            });
+        } else {
+            onError(e?.response?.data?.message || 'Something went wrong');
+        }
     } finally {
         setLoading && setLoading(false);
     }
