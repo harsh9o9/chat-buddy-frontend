@@ -17,6 +17,7 @@ A real time chatting website build using react and socket.io ([link](https://cha
 - Run server `npm run dev`
 
 ## Details:
+- I have built login, register, logout, logout from everydevice feature
 - In this website I created my own authentication and session management logic using JWT tokens, Here is how the flow goes:
 - ![Auth flow_img](https://github.com/harsh9o9/chat-buddy-frontend/assets/90497185/ddfd23f6-71dc-47ba-a27b-3bfe6513af7b)
 
