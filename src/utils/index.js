@@ -62,6 +62,11 @@ export const getFullName = (user) => {
 
 // utility class for using localstorage easily
 export class LocalStorage {
+    /**
+     * returns the value of a key from local storage
+     * @param {String} key key whose value is needed
+     * @returns the value of given key from local storage
+     */
     static get(key) {
         const value = localStorage.getItem(key);
         if (value) {
@@ -74,14 +79,26 @@ export class LocalStorage {
         return null;
     }
 
+    /**
+     * Set a new key value pair in local storage
+     * @param {String} key Key to be used
+     * @param {String} value value to be inserted for above key
+     */
     static set(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     }
 
+    /**
+     * remove a particular item from local storage using key
+     * @param {String} key key to be removed
+     */
     static remove(key) {
         localStorage.removeItem(key);
     }
 
+    /**
+     * clears all items in local storage
+     */
     static clear() {
         localStorage.clear();
     }

@@ -79,9 +79,8 @@ const attachResponseInterceptor = () => {
                     });
                 } catch (reauthError) {
                     LocalStorage.clear();
-                    console.error('Re Auth Error: ', reauthError);
-                    toast.error('Authentication expired, please re-login');
-                    navigate('/login');
+                    toast.error('Session expired, please re-login');
+                    window.location.href = '/login';
                     /* We do not `return` so that we proceed to log error */
                 }
             }

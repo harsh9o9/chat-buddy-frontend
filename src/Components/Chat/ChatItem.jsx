@@ -43,10 +43,14 @@ const ChatItem = ({ chat, onClick, isActive, onChatDelete }) => {
                     <img
                         src={getChatObjectMetadata(chat, user).avatar}
                         className="h-12 rounded-md"
+                        alt={
+                            getChatObjectMetadata(chat, user)?.fullName +
+                            'profile picture'
+                        }
                     />
                 </div>
                 <div className="w-full">
-                    <p className="truncate-1 font-bold capitalize text-white">
+                    <p className="truncate-1 font-bold capitalize text-white ">
                         {getChatObjectMetadata(chat, user)?.fullName}
                     </p>
                 </div>

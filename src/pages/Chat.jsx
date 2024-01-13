@@ -3,7 +3,7 @@ import { useAuth } from '../Context/AuthContext';
 import { useSocket } from '../Context/SocketContext';
 import Input from '../Components/Input';
 import { ChatEvents } from '../utils/constants';
-import AddChatModal from '../Components/Chat/AddChatModal';
+import { lazy } from 'react';
 import {
     LocalStorage,
     getChatObjectMetadata,
@@ -21,6 +21,8 @@ import {
 import MessageItem from '../Components/Chat/MessageItem';
 import isMobile from 'is-mobile';
 import { ToastContainer, toast } from 'react-toastify';
+const AddChatModal = lazy(() => import('../Components/Chat/AddChatModal'));
+const ChatsDropdown = lazy(() => import('../Components/Chat/ChatsDropdown'));
 
 const Chat = () => {
     const { user } = useAuth();
@@ -181,11 +183,20 @@ const Chat = () => {
                     <div className="chat-pannel relative overflow-y-auto bg-gray-500 px-4">
                         <div className="sticky top-0 z-10 w-full bg-gray-500 pb-2">
                             <div className="flex items-center justify-between pt-4 text-lg font-bold tracking-wide text-white">
-                                <p className="capitalize">{getFullName()}</p>
-                                <img
-                                    src={LocalStorage.get('user').avatar.url}
-                                    alt="random image"
-                                    className="h-12 rounded-md"
+                                <p className="capitalize drop-shadow-md">
+                                    {getFullName()}
+                                </p>
+                                <ChatsDropdown
+                                    trigger={
+                                        <img
+                                            src={
+                                                LocalStorage.get('user').avatar
+                                                    .url
+                                            }
+                                            alt="user image"
+                                            className="h-12 rounded-md"
+                                        />
+                                    }
                                 />
                             </div>
                             <div className="mr-2 grid grid-cols-[1fr_30px] gap-1 pt-4">
@@ -296,10 +307,17 @@ const Chat = () => {
                                                         user
                                                     ).avatar
                                                 }
+                                                alt={
+                                                    getChatObjectMetadata(
+                                                        currentChat.current,
+                                                        user
+                                                    )?.fullName +
+                                                    'profile picture'
+                                                }
                                             />
                                         )}
                                         <div>
-                                            <p className="font-bold capitalize text-white">
+                                            <p className="font-bold capitalize text-white ">
                                                 {
                                                     getChatObjectMetadata(
                                                         currentChat.current,
@@ -373,8 +391,12 @@ const Chat = () => {
                                     <button
                                         onClick={sendChatMessage}
                                         disabled={!message}
-                                        className="rounded-full bg-gray-700 p-3 text-zinc-200 hover:bg-white hover:text-black focus:bg-white focus:text-black focus:outline-none focus:ring-[3px] focus:ring-sky-500 disabled:opacity-50">
-                                        <PaperAirplaneIcon className="h-5 w-5" />
+                                        className="rounded-full bg-gray-700 p-3 text-zinc-200 hover:bg-white hover:text-black focus:bg-white focus:text-black focus:outline-none focus:ring-[3px] focus:ring-sky-500 disabled:opacity-50"
+                                        aria-label="Send message">
+                                        <PaperAirplaneIcon
+                                            className="h-5 w-5"
+                                            aria-hidden={true}
+                                        />
                                     </button>
                                 </div>
                             </>
