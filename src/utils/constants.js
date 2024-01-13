@@ -18,5 +18,7 @@ export const ChatEvents = Object.freeze({
     // ? when participant stops typing
     STOP_TYPING_EVENT: 'stopTyping',
     // ? when participant starts typing
-    TYPING_EVENT: 'typing'
+    TYPING_EVENT: 'typing',
+    // ? when user does a master logout
+    MASTER_LOGOUT: 'masterLogout'
 });

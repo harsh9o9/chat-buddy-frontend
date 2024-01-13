@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { LocalStorage, requestHandler } from '../../utils';
-import { logoutUser } from '../../api';
+import { logoutUser, masterLogoutUser } from '../../api';
 import { toast } from 'react-toastify';
 
 const dropdownMenuItemIconNames = {
@@ -21,7 +21,6 @@ let ChatsDropdownData = [
                 null, // TODO: need to add loading logic here
                 // On success clear local storage,
                 (res) => {
-                    console.log('in logout response handler');
                     LocalStorage.clear();
                     window.location.href = '/login';
                 },
@@ -32,8 +31,19 @@ let ChatsDropdownData = [
     {
         key: 'signOutEveryWhere',
         name: 'Sign Out Everywhere',
-        disabled: true,
-        onClick: null
+        disabled: false,
+        onClick: async () => {
+            await requestHandler(
+                async () => await masterLogoutUser(),
+                null, // TODO: need to add loading logic here
+                // On success clear local storage,
+                (res) => {
+                    LocalStorage.clear();
+                    window.location.href = '/login';
+                },
+                (message) => toast.error(message)
+            );
+        }
     }
 ];
 
@@ -67,7 +77,9 @@ const ChatsDropdown = ({ trigger }) => {
                                 return (
                                     <Menu.Item
                                         key={dropdownItem.key}
-                                        disabled={dropdownItem.disabled}>
+                                        disabled={
+                                            dropdownItem.disabled ? true : false
+                                        }>
                                         {({ active, disabled }) => (
                                             <button
                                                 className={`${

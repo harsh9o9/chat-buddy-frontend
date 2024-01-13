@@ -40,7 +40,7 @@ export const getChatObjectMetadata = (chat, loggedInUser) => {
 
     // Return metadata specific to individual chats.
     return {
-        avatar: participant?.avatar.url, // Participant's avatar URL.
+        avatar: participant?.avatar?.url, // Participant's avatar URL.
         title: participant?.username, // Participant's username serves as the title.
         description: participant?.email,
         fullName: getFullName(participant) // Email address of the participant.

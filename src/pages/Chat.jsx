@@ -63,6 +63,14 @@ const Chat = () => {
         }
     };
 
+    /**
+     * handle the master logout socket event
+     */
+    const onMasterLogout = () => {
+        LocalStorage.clear();
+        window.location.href = '/login';
+    };
+
     // Event handler which runs when user is typing message
     const handleOnMessageChange = (e) => {
         setMessage(e.target.value);
@@ -151,6 +159,7 @@ const Chat = () => {
         socket.on(ChatEvents.NEW_CHAT_EVENT, onNewChat);
         // Listener for when a new message is received.
         socket.on(ChatEvents.MESSAGE_RECEIVED_EVENT, onMessageReceived);
+        socket.on(ChatEvents.MASTER_LOGOUT, onMasterLogout);
 
         return () => {
             // removing eventlisteners to avaoid unwanted behavoiurs
@@ -158,6 +167,7 @@ const Chat = () => {
             socket.off(ChatEvents.DISCONNECT_EVENT, onDisconnect);
             socket.off(ChatEvents.NEW_CHAT_EVENT, onNewChat);
             socket.off(ChatEvents.MESSAGE_RECEIVED_EVENT, onMessageReceived);
+            socket.off(ChatEvents.MASTER_LOGOUT, onMasterLogout);
         };
     }, [chats, socket]);
 
@@ -190,8 +200,8 @@ const Chat = () => {
                                     trigger={
                                         <img
                                             src={
-                                                LocalStorage.get('user').avatar
-                                                    .url
+                                                LocalStorage.get('user')?.avatar
+                                                    ?.url
                                             }
                                             alt="user image"
                                             className="h-12 rounded-md"
@@ -305,7 +315,7 @@ const Chat = () => {
                                                     getChatObjectMetadata(
                                                         currentChat.current,
                                                         user
-                                                    ).avatar
+                                                    )?.avatar
                                                 }
                                                 alt={
                                                     getChatObjectMetadata(

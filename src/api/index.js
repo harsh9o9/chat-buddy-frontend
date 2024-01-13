@@ -116,6 +116,12 @@ const logoutUser = () => {
     });
 };
 
+const masterLogoutUser = () => {
+    return apiClient.post('/users/master-logout', null, {
+        requireAuthHeader: true
+    });
+};
+
 const getUserChats = () => {
     return apiClient.get(`/chat-app/chats`, {
         requireAuthHeader: true
@@ -157,6 +163,7 @@ export {
     loginUser,
     registerUser,
     logoutUser,
+    masterLogoutUser,
     getUserChats,
     getAvailableUsers,
     createUserChat,
