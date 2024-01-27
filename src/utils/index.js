@@ -1,4 +1,5 @@
 import { redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // utility function for handling api requests while handling loading, success, error states
 export const requestHandler = async (api, setLoading, onSuccess, onError) => {
@@ -11,9 +12,10 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
             onSuccess(data);
         }
     } catch (e) {
-        if ([401, 403].includes(e?.response?.data?.statusCode)) {
-            console.error('auth error, please relogin');
+        console.log('requestHandler: ', e);
+        if ([401, 403].includes(e?.response?.status)) {
             localStorage.clear();
+            toast.error('Your session expired, please re-login');
             redirect('/login');
         }
 

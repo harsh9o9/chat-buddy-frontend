@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
-import { Combobox } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 
-const Select = ({ options, value, placeholder, onChange }) => {
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+/* eslint-disable react/prop-types */
+import { Combobox } from '@headlessui/react';
+
+const Select = ({ options, value, placeholder, label, onChange }) => {
     const [localOptions, setLocalOptions] = useState([]);
 
     useEffect(() => {
@@ -14,10 +15,10 @@ const Select = ({ options, value, placeholder, onChange }) => {
         <Combobox
             className={'w-full'}
             as="div"
-            value={options.find((o) => o.value === value)}
             onChange={(val) => onChange(val)}>
             <div className="relative mt-2">
-                <Combobox.Button className="w-full">
+                <Combobox.Label className={'text-left'}>{label}</Combobox.Label>
+                <Combobox.Button className="relative w-full">
                     <Combobox.Input
                         placeholder={placeholder}
                         className="block w-full rounded-xl border-0 bg-zinc-100 px-5 py-4 font-light text-black outline outline-[1px] outline-zinc-400 placeholder:text-black/70 focus:outline-none focus:ring-[3px] focus:ring-sky-500"
@@ -30,12 +31,12 @@ const Select = ({ options, value, placeholder, onChange }) => {
                         }}
                         displayValue={(option) => option?.label}
                     />
-                </Combobox.Button>
-                <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                    <ChevronUpDownIcon
-                        className="h-5 w-5 text-zinc-400"
-                        aria-hidden="true"
-                    />
+                    <span className="absolute inset-y-0 right-0 flex items-center">
+                        <ChevronUpDownIcon
+                            className="h-5 w-5 text-zinc-400"
+                            aria-hidden="true"
+                        />
+                    </span>
                 </Combobox.Button>
 
                 {localOptions.length > 0 && (

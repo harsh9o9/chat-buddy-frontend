@@ -1,26 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
-import { useAuth } from '../Context/AuthContext';
-import { useSocket } from '../Context/SocketContext';
-import Input from '../Components/Input';
-import { ChatEvents } from '../utils/constants';
-import { lazy } from 'react';
+import {
+    ArrowLongLeftIcon,
+    PaperAirplaneIcon
+} from '@heroicons/react/20/solid';
 import {
     LocalStorage,
     getChatObjectMetadata,
     getFullName,
     requestHandler
 } from '../utils';
-import { getChatMessages, getUserChats, sendMessage } from '../api';
-import ChatItem from '../Components/Chat/ChatItem';
-import Typing from '../Components/Chat/Typing';
-import Loader from '../Components/Loader';
-import {
-    PaperAirplaneIcon,
-    ArrowLongLeftIcon
-} from '@heroicons/react/20/solid';
-import MessageItem from '../Components/Chat/MessageItem';
-import isMobile from 'is-mobile';
 import { ToastContainer, toast } from 'react-toastify';
+import { getChatMessages, getUserChats, sendMessage } from '../api';
+import { lazy, useEffect, useRef, useState } from 'react';
+
+import { ChatEvents } from '../utils/constants';
+import ChatItem from '../Components/Chat/ChatItem';
+import Input from '../Components/Input';
+import Loader from '../Components/Loader';
+import MessageItem from '../Components/Chat/MessageItem';
+import Typing from '../Components/Chat/Typing';
+import isMobile from 'is-mobile';
+import { useAuth } from '../Context/AuthContext';
+import { useSocket } from '../Context/SocketContext';
+
 const AddChatModal = lazy(() => import('../Components/Chat/AddChatModal'));
 const ChatsDropdown = lazy(() => import('../Components/Chat/ChatsDropdown'));
 
@@ -28,7 +29,6 @@ const Chat = () => {
     const { user } = useAuth();
     const { socket } = useSocket();
     const currentChat = useRef(null);
-    const [isConnected, setIsConnected] = useState(false); // For tracking socket connection
     const [openAddChat, setOpenAddChat] = useState(false); // to control the add chat modal
     const [loadingChats, setLoadingChats] = useState(false); // To indicate loading of chats
     const [loadingMessages, setLoadingMessages] = useState(false); // To indicate loading of messages
@@ -42,14 +42,6 @@ const Chat = () => {
     const [showChatsPannel, setShowChatsPannel] = useState(true);
 
     const [localSearchQuery, setLocalSearchQuery] = useState(''); // For local search functionality
-
-    const onConnect = () => {
-        setIsConnected(true);
-    };
-
-    const onDisconnect = () => {
-        setIsConnected(false);
-    };
 
     const onNewChat = (chat) => {
         setChats((prev) => [chat, ...prev]);
@@ -65,9 +57,12 @@ const Chat = () => {
 
     /**
      * handle the master logout socket event
+     * Clear local storage, expire refreshTkn, redirect user to login
      */
     const onMasterLogout = () => {
         LocalStorage.clear();
+        document.cookie =
+            'refreshTkn=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
         window.location.href = '/login';
     };
 
@@ -152,19 +147,15 @@ const Chat = () => {
     useEffect(() => {
         if (!socket) return;
 
-        socket.on(ChatEvents.CONNECTED_EVENT, onConnect);
-        // Listener for when the socket disconnects.
-        socket.on(ChatEvents.DISCONNECT_EVENT, onDisconnect);
         // Listener for when a new chat is added.
         socket.on(ChatEvents.NEW_CHAT_EVENT, onNewChat);
         // Listener for when a new message is received.
         socket.on(ChatEvents.MESSAGE_RECEIVED_EVENT, onMessageReceived);
+        // Listener for when a master logout request comes
         socket.on(ChatEvents.MASTER_LOGOUT, onMasterLogout);
 
         return () => {
             // removing eventlisteners to avaoid unwanted behavoiurs
-            socket.off(ChatEvents.CONNECTED_EVENT, onConnect);
-            socket.off(ChatEvents.DISCONNECT_EVENT, onDisconnect);
             socket.off(ChatEvents.NEW_CHAT_EVENT, onNewChat);
             socket.off(ChatEvents.MESSAGE_RECEIVED_EVENT, onMessageReceived);
             socket.off(ChatEvents.MASTER_LOGOUT, onMasterLogout);

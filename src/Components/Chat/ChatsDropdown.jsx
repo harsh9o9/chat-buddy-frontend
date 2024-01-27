@@ -1,8 +1,11 @@
+import { LocalStorage, requestHandler } from '../../utils';
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { LocalStorage, requestHandler } from '../../utils';
 import { logoutUser, masterLogoutUser } from '../../api';
+
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import SignOutEverywhereIcon from '../SvgComponents/SignOutEverywhereIcon';
+import SignOutIcon from '../SvgComponents/SignOutIcon';
 import { toast } from 'react-toastify';
 
 const dropdownMenuItemIconNames = {
@@ -113,49 +116,3 @@ const ChatsDropdown = ({ trigger }) => {
 };
 
 export default ChatsDropdown;
-
-function SignOutIcon(props) {
-    return (
-        <svg
-            {...props}
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M10 4H16V10"
-                stroke={props.active ? 'white' : 'rgb(156 163 175)'}
-                strokeWidth="2"
-            />
-            <path
-                d="M16 4L8 12"
-                stroke={props.active ? 'white' : 'rgb(156 163 175)'}
-                strokeWidth="2"
-            />
-            <path
-                d="M8 6H4V16H14V12"
-                stroke={props.active ? 'white' : 'rgb(107 114 128)'}
-                strokeWidth="2"
-            />
-        </svg>
-    );
-}
-
-function SignOutEverywhereIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 28 20"
-            strokeWidth={1.5}
-            stroke="currentColor">
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
-                stroke={props.active ? '' : 'rgb(107 114 128)'}
-                strokeWidth="2"
-            />
-        </svg>
-    );
-}

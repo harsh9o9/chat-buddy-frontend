@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
-import { useAuth } from '../../Context/AuthContext';
 import { getChatObjectMetadata } from '../../utils';
-import moment from 'moment';
 import isMobile from 'is-mobile';
+import moment from 'moment';
+import { useAuth } from '../../Context/AuthContext';
+import { useState } from 'react';
 
 /* eslint-disable react/prop-types */
 const ChatItem = ({ chat, onClick, isActive, onChatDelete }) => {

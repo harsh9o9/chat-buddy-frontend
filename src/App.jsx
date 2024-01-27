@@ -1,11 +1,12 @@
-import { useAuth } from './Context/AuthContext';
 import { Navigate, Route, Routes } from 'react-router-dom';
+
 import Chat from './pages/Chat';
 import Login from './pages/Login';
-import Register from './pages/Register';
+import Lost from './Components/Lost';
 import PrivateRoute from './Components/PrivatePoute';
 import PublicRoute from './Components/PublicRoute';
-import Lost from './Components/Lost';
+import Register from './pages/Register';
+import { useAuth } from './Context/AuthContext';
 
 function App() {
     let { token, user } = useAuth();

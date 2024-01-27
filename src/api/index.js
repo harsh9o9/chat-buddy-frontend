@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { LocalStorage } from '../utils';
-import { toast } from 'react-toastify';
+import axios from 'axios';
 
 // creating axios client to get azios functionality
 const apiClient = axios.create({
@@ -65,7 +64,7 @@ const attachResponseInterceptor = () => {
                     // Add/replace `Authorization` header to `config` of original request
                     config.headers.Authorization = `Bearer ${newAccessToken}`;
 
-                    // Add the new token to redux store
+                    // Add the new token to local storage
                     LocalStorage.set('token', data.accessToken);
 
                     // Increment retry count and attach back interceptor
@@ -78,10 +77,8 @@ const attachResponseInterceptor = () => {
                         headers: config.headers.toJSON()
                     });
                 } catch (reauthError) {
-                    LocalStorage.clear();
-                    toast.error('Session expired, please re-login');
-                    window.location.href = '/login';
-                    /* We do not `return` so that we proceed to log error */
+                    // throw error so that requestHandler can catch it.
+                    throw reauthError;
                 }
             }
 

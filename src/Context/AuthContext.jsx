@@ -1,10 +1,11 @@
+import { LocalStorage, requestHandler } from '../utils';
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from 'react';
-import { LocalStorage, requestHandler } from '../utils';
-import { loginUser, registerUser, logoutUser } from '../api';
+import { loginUser, logoutUser, registerUser } from '../api';
+
 import Loader from '../Components/Loader';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 // crating context variable with default values
 const AuthContext = createContext({
