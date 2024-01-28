@@ -1,4 +1,3 @@
-import { redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 // utility function for handling api requests while handling loading, success, error states
@@ -16,7 +15,12 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
         if ([401, 403].includes(e?.response?.status)) {
             localStorage.clear();
             toast.error('Your session expired, please re-login');
-            redirect('/login');
+            /**
+             * TODO: Fix this
+             * This is a temp solution until I figure out a way to used any react router hook to redirect user.
+             * set timeout is used to make toask meesage vissible for some time before redirecting user. (temporary)
+             */
+            setTimeout(() => (window.location.href = '/login'), 1000);
         }
 
         let responseMessage = e?.response?.data?.message;
