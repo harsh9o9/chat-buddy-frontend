@@ -13,10 +13,10 @@ const Login = () => {
     });
 
     const handleDataChange = (name) => {
-        return (e) => {
+        return (evt) => {
             setData({
                 ...data,
-                [name]: e.target.value
+                [name]: evt.target.value
             });
         };
     };
