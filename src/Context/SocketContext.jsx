@@ -6,11 +6,17 @@ import { useAuth } from './AuthContext';
 
 // Function to establish a socket connection with authorization token
 const getSocket = (token) => {
+    console.log('token:', token);
     // create a socket connection with URI & turning credentials true for sending backup auth token in handshake
-    return socketio(import.meta.env.VITE_SOCKET_URI, {
+    const options = {
         withCredentials: true,
-        auth: { token: 'Bearer ' + token }
-    });
+    };
+    if (token) {
+        options.auth = {token: `Bearer ${token}`};
+    }
+
+    console.log('token:', token);
+    return socketio(import.meta.env.VITE_SOCKET_URI, options);
 };
 
 // creating a context to hold socket instance
