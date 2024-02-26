@@ -1,16 +1,24 @@
+import { ToastContainer, toast } from 'react-toastify';
+
 import Button from '../Components/Button';
 import FanIcon from '../Components/SvgComponents/FanIcon';
 import Input from '../Components/Input';
-import { ToastContainer } from 'react-toastify';
 import cartoon from '../assets/cartoon-graphic.webp';
 import { useAuth } from '../Context/AuthContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Login = () => {
     const [data, setData] = useState({
         email: '',
         password: ''
     });
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        if (queryParams.has('sessionExpired')) {
+            toast.error('Your session expired, please re-login');
+        }
+    }, []);
 
     const handleDataChange = (name) => {
         return (evt) => {
@@ -30,7 +38,7 @@ const Login = () => {
 
     return (
         <>
-            <ToastContainer position="top-left" />
+            <ToastContainer limit={3} pauseOnFocusLoss={false} position="top-left"/>
             <div className="bg-gray-300">
                 <div className="min-h-svh flex items-center justify-evenly p-4">
                     <div className="hidden sm:block sm:basis-1/2 lg:basis-7/12">
