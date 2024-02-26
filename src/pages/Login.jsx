@@ -38,7 +38,11 @@ const Login = () => {
 
     return (
         <>
-            <ToastContainer limit={3} pauseOnFocusLoss={false} position="top-left"/>
+            <ToastContainer
+                limit={3}
+                pauseOnFocusLoss={false}
+                position="top-left"
+            />
             <div className="bg-gray-300">
                 <div className="min-h-svh flex items-center justify-evenly p-4">
                     <div className="hidden sm:block sm:basis-1/2 lg:basis-7/12">

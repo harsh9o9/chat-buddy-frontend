@@ -9,10 +9,10 @@ const getSocket = (token) => {
     console.log('token:', token);
     // create a socket connection with URI & turning credentials true for sending backup auth token in handshake
     const options = {
-        withCredentials: true,
+        withCredentials: true
     };
     if (token) {
-        options.auth = {token: `Bearer ${token}`};
+        options.auth = { token: `Bearer ${token}` };
     }
 
     console.log('token:', token);
