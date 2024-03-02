@@ -7,6 +7,8 @@ import PrivateRoute from './Components/PrivatePoute';
 import PublicRoute from './Components/PublicRoute';
 import Register from './pages/Register';
 import { useAuth } from './Context/AuthContext';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
     let { token, user } = useAuth();
@@ -21,7 +23,8 @@ function App() {
                     ) : (
                         <Navigate to="/login" />
                     )
-                }></Route>
+                }
+            />
 
             {/* private route can't be accessed directly */}
             <Route
@@ -30,7 +33,8 @@ function App() {
                     <PrivateRoute>
                         <Chat />
                     </PrivateRoute>
-                }></Route>
+                }
+            />
 
             {/* public route login can be accessed directly */}
             <Route
@@ -39,7 +43,8 @@ function App() {
                     <PublicRoute>
                         <Login />
                     </PublicRoute>
-                }></Route>
+                }
+            />
 
             {/* public route register can be accessed directly */}
             <Route
@@ -48,7 +53,24 @@ function App() {
                     <PublicRoute>
                         <Register />
                     </PublicRoute>
-                }></Route>
+                }
+            />
+            <Route
+                path="/forgot-password"
+                element={
+                    <PublicRoute>
+                        <ForgotPassword />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path="/resetpass/:resetToken"
+                element={
+                    <PublicRoute>
+                        <ResetPassword />
+                    </PublicRoute>
+                }
+            />
             <Route path="*" element={<Lost />}></Route>
         </Routes>
     );

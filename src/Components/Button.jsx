@@ -3,10 +3,12 @@ const Button = ({
     fullWidth,
     severity = 'primary',
     size = 'base',
+    disabled = false,
     ...props
 }) => {
     return (
         <button
+            disabled={disabled}
             {...props}
             className={`inline-flex flex-shrink-0 items-center justify-center rounded-full text-center shadow-sm focus:outline-none focus:ring-[3px] focus:ring-sky-500 ${
                 fullWidth ? 'w-full' : ''

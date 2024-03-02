@@ -1,11 +1,13 @@
 import { ToastContainer, toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 import Button from '../Components/Button';
 import FanIcon from '../Components/SvgComponents/FanIcon';
 import Input from '../Components/Input';
+import { Link } from 'react-router-dom';
+import { QUERY_PARAMS_MAP } from '../utils/constants';
 import cartoon from '../assets/cartoon-graphic.webp';
 import { useAuth } from '../Context/AuthContext';
-import { useEffect, useState } from 'react';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -15,8 +17,10 @@ const Login = () => {
 
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
-        if (queryParams.has('sessionExpired')) {
+        if (queryParams.has(QUERY_PARAMS_MAP.SESSION_EXPIRED.name)) {
             toast.error('Your session expired, please re-login');
+        } else if (queryParams.has(QUERY_PARAMS_MAP.RESET_PASSWORD.name)) {
+            toast.success('Password reset successfully, Please login!');
         }
     }, []);
 
@@ -74,7 +78,8 @@ const Login = () => {
                                     value={data.email}
                                     autoComplete="email"
                                     onChange={handleDataChange('email')}
-                                    className="bg-transparent"></Input>
+                                    className="bg-transparent"
+                                />
 
                                 <Input
                                     label="Password: "
@@ -84,10 +89,14 @@ const Login = () => {
                                     onChange={handleDataChange('password')}
                                     className="bg-transparent"
                                 />
-
+                                <Link
+                                    to={'/forgot-password'}
+                                    className="text-right text-xs">
+                                    ForgotPassword?
+                                </Link>
                                 <Button
                                     fullWidth
-                                    type="sumbit"
+                                    type="submit"
                                     className="text-white">
                                     Login
                                 </Button>

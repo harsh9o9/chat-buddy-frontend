@@ -1,3 +1,5 @@
+import { QUERY_PARAMS_MAP } from './constants';
+
 // utility function for handling api requests while handling loading, success, error states
 export const requestHandler = async (api, setLoading, onSuccess, onError) => {
     setLoading && setLoading(true);
@@ -15,7 +17,7 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
              * TODO: Fix this
              * This is a temp solution until I figure out a way to used any react router hook to redirect user.
              */
-            window.location.href = '/login?sessionExpired';
+            window.location.href = `/login?${QUERY_PARAMS_MAP.SESSION_EXPIRED.name}`;
         }
 
         let responseMessage = e?.response?.data?.message;
@@ -108,3 +110,18 @@ export class LocalStorage {
 export const classNames = (...className) => {
     return className.filter().join(' ');
 };
+
+/**
+ * Updates the value of a specified key within a state variable.
+ *
+ * @param {string} key - The key to be updated within the state variable.
+ * @param {*} value - The new value to be assigned to the specified key.
+ * @param {Object} stateVariable - The current state variable.
+ * @param {Function} setStateVariable - The state update function.
+ */
+export const updateStateObject = (
+    key,
+    value,
+    stateVariable,
+    setStateVariable
+) => setStateVariable({ ...stateVariable, [key]: value });

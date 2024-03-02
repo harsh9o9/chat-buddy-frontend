@@ -2,7 +2,7 @@
 import { useId, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 
-const Input = ({ label, fullWidth = true, ...props }) => {
+const Input = ({ label, fullWidth = true, errorText, ...props }) => {
     const id = useId();
     const [isDataVisible, setIsDataVisible] = useState(false);
 
@@ -52,6 +52,9 @@ const Input = ({ label, fullWidth = true, ...props }) => {
                     } ${props?.className || ''}`}
                 />
             )}
+            <p role="alert" className="text-sm text-red-600">
+                {errorText ? errorText : ''}
+            </p>
         </div>
     );
 };

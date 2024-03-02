@@ -8,3 +8,12 @@ export const ChatEvents = Object.freeze({
     // ? when user does a master logout
     MASTER_LOGOUT: 'masterLogout'
 });
+
+export const QUERY_PARAMS_MAP = Object.freeze({
+    SESSION_EXPIRED: {
+        name: 'sessionExpired'
+    },
+    RESET_PASSWORD: {
+        name: 'rstPwd'
+    }
+});

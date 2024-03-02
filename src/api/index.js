@@ -89,6 +89,14 @@ const attachResponseInterceptor = () => {
 attachResponseInterceptor();
 
 // FUNCTIONS FOR DB ACTION
+/**
+ * Logs in a user with the provided credentials.
+ *
+ * @param {Object} data - The user login credentials.
+ * @param {string} data.email - The email address of the user.
+ * @param {string} data.password - The password for the user.
+ * @returns {Promise} A Promise that resolves when the login is successful and rejects on failure.
+ */
 const loginUser = (data) => {
     data = {
         email: data.email,
@@ -97,6 +105,16 @@ const loginUser = (data) => {
     return apiClient.post('/users/login', data);
 };
 
+/**
+ * Registers a new user with the provided information.
+ *
+ * @param {Object} data - The user registration details.
+ * @param {string} [data.email] - The email address of the user.
+ * @param {string} [data.fullName] - The full name of the user.
+ * @param {string} [data.password] - The password for the user.
+ * @param {string} [data.username] - The username for the user.
+ * @returns {Promise} A Promise that resolves when the registration is successful and rejects on failure.
+ */
 const registerUser = (data) => {
     data = {
         email: data?.email,
@@ -107,18 +125,33 @@ const registerUser = (data) => {
     return apiClient.post('/users/register', data);
 };
 
+/**
+ * Logs out the current user.
+ *
+ * @returns {Promise} A Promise that resolves when the logout is successful and rejects on failure.
+ */
 const logoutUser = () => {
     return apiClient.post('/users/logout', null, {
         requireAuthHeader: true
     });
 };
 
+/**
+ * Logs out the current user from all sessions.
+ *
+ * @returns {Promise} A Promise that resolves when the master logout is successful and rejects on failure.
+ */
 const masterLogoutUser = () => {
     return apiClient.post('/users/master-logout', null, {
         requireAuthHeader: true
     });
 };
 
+/**
+ * Retrieves the chats for the authenticated user.
+ *
+ * @returns {Promise} A Promise that resolves with the user's chats and rejects on failure.
+ */
 const getUserChats = () => {
     return apiClient.get(`/chat-app/chats`, {
         requireAuthHeader: true
@@ -131,22 +164,66 @@ const getAvailableUsers = () => {
     });
 };
 
+/**
+ * Retrieves a list of available users for chatting.
+ *
+ * @returns {Promise} A Promise that resolves with the list of available users and rejects on failure.
+ */
 const refreshAccessToken = () => {
     return apiClient.post(`/users/reauth`);
 };
 
+/**
+ *  Sends a request to reset the password for the provided email.
+ * @param {String} email The email address to which the reset password link will be sent.
+ * @returns {Promise} A Promise that resolves when the request is successful and rejects on failure.
+ */
+const forgotPassword = (email) => {
+    return apiClient.post('/users/forgotpass', { email });
+};
+
+/**
+ * Sends a request to reset the password using the provided password and confirmation.
+ * @param {string} password - The new password for the user account.
+ * @param {string} confirmPassword - Confirmation of the new password.
+ * @returns {Promise} A Promise that resolves when the password is successfully reset and rejects on failure.
+ */
+const resetPassword = (resetToken, password, confirmPassword) => {
+    const url = `/users/resetpass/${resetToken}`;
+    return apiClient.post(url, { password, confirmPassword });
+};
+
+/**
+ * Creates a new chat with the specified user.
+ *
+ * @param {string} receiverId - The ID of the user to start the chat with.
+ * @returns {Promise} A Promise that resolves when the chat is successfully created and rejects on failure.
+ */
 const createUserChat = (receiverId) => {
     return apiClient.post(`/chat-app/chats/c/${receiverId}`, null, {
         requireAuthHeader: true
     });
 };
 
+/**
+ * Retrieves the messages for a specific chat.
+ *
+ * @param {string} chatId - The ID of the chat for which to retrieve messages.
+ * @returns {Promise} A Promise that resolves with the chat messages and rejects on failure.
+ */
 const getChatMessages = (chatId) => {
     return apiClient.get(`/chat-app/messages/${chatId}`, {
         requireAuthHeader: true
     });
 };
 
+/**
+ * Sends a message to a specific chat.
+ *
+ * @param {string} chatId - The ID of the chat to which the message will be sent.
+ * @param {string} content - The content of the message.
+ * @returns {Promise} A Promise that resolves when the message is successfully sent and rejects on failure.
+ */
 const sendMessage = (chatId, content) => {
     return apiClient.post(
         `/chat-app/messages/${chatId}`,
@@ -156,6 +233,7 @@ const sendMessage = (chatId, content) => {
         }
     );
 };
+
 export {
     loginUser,
     registerUser,
@@ -166,5 +244,7 @@ export {
     createUserChat,
     getChatMessages,
     sendMessage,
-    refreshAccessToken
+    refreshAccessToken,
+    forgotPassword,
+    resetPassword
 };
