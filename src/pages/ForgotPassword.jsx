@@ -2,6 +2,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import Button from '../Components/Button';
 import Input from '../Components/Input';
+import SimpleLoader from '../Components/SvgComponents/simpleLoder';
 import { forgotPassword } from '../api';
 import { requestHandler } from '../utils';
 import { useState } from 'react';
@@ -18,14 +19,16 @@ const ForgotPassword = () => {
     const onForgotPasswordSubmit = (evt) => {
         evt.preventDefault();
         forgotPasswordHandler();
-        setIsSubmitted(true);
     };
 
     const forgotPasswordHandler = async () => {
         await requestHandler(
             async () => await forgotPassword(email.trim()),
             setIsLoading,
-            null,
+            (data) => {
+                toast.info(data?.message);
+                setIsSubmitted(true);
+            },
             (message) => toast.error(message)
         );
     };
@@ -60,8 +63,9 @@ const ForgotPassword = () => {
                                 <Button
                                     fullWidth
                                     type="submit"
-                                    className="text-white">
-                                    {isLoading ? 'Loading' : 'Next'}
+                                    className="text-white"
+                                    disabled={isLoading}>
+                                    {isLoading ? <SimpleLoader color={'green'} /> : 'Next'}
                                 </Button>
                             </form>
                         ) : (
