@@ -38,7 +38,10 @@ const AuthProvider = ({ children }) => {
                 LocalStorage.set('token', data.accessToken);
                 if (data?.refreshToken) {
                     // Store refreshToken as fallback for cross-site cookie issue
+                    console.log('✅ Refresh token stored in localStorage');
                     LocalStorage.set('refreshToken', data.refreshToken);
+                } else {
+                    console.log('❌ No refresh token received from backend');
                 }
                 navigate('/chat');
             },

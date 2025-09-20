@@ -171,9 +171,16 @@ const getAvailableUsers = () => {
  */
 const refreshAccessToken = () => {
     const refreshToken = LocalStorage.get('refreshToken');
+    console.log(
+        '🔄 Refresh token from localStorage:',
+        refreshToken ? 'Found' : 'Not found'
+    );
     const headers = {};
     if (refreshToken) {
         headers.Authorization = `Refresh ${refreshToken}`;
+        console.log('🔑 Setting Authorization header with refresh token');
+    } else {
+        console.log('❌ No refresh token available for fallback');
     }
     return apiClient.post(`/users/reauth`, null, { headers });
 };
