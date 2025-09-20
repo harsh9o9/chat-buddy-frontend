@@ -36,6 +36,10 @@ const AuthProvider = ({ children }) => {
                 setToken(data.accessToken);
                 LocalStorage.set('user', data.user);
                 LocalStorage.set('token', data.accessToken);
+                if (data?.refreshToken) {
+                    // Store refreshToken as fallback for cross-site cookie issue
+                    LocalStorage.set('refreshToken', data.refreshToken);
+                }
                 navigate('/chat');
             },
             (message) => toast.error(message)

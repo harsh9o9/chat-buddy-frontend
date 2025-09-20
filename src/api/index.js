@@ -170,7 +170,12 @@ const getAvailableUsers = () => {
  * @returns {Promise} A Promise that resolves with the list of available users and rejects on failure.
  */
 const refreshAccessToken = () => {
-    return apiClient.post(`/users/reauth`);
+    const refreshToken = LocalStorage.get('refreshToken');
+    const headers = {};
+    if (refreshToken) {
+        headers.Authorization = `Refresh ${refreshToken}`;
+    }
+    return apiClient.post(`/users/reauth`, null, { headers });
 };
 
 /**
