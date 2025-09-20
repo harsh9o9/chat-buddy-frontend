@@ -172,7 +172,7 @@ const getAvailableUsers = () => {
 const refreshAccessToken = () => {
     const refreshToken = LocalStorage.get('refreshToken');
     console.log(
-        '🔄 Refresh token from localStorage:',
+        '🔄 Refresh token from localStorage: ',
         refreshToken ? 'Found' : 'Not found'
     );
     const headers = {};
